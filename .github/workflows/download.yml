@@ -1,0 +1,43 @@
+name: Download and Publish File
+
+env:
+  url: https://download-cdn.jetbrains.com/idea/$file_name
+  file_name: IU-231.9392.1-232.9559.62-patch-win.jar
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Download File
+      run: |
+        curl -LO $url  # 替换<URL>为指定的文件下载链接
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: $file_name  # 替换为你想要的标签名
+        release_name: $file_name  # 替换为你想要的发布名称
+        body: |
+          $file_name  # 替换为你想要的发布说明
+
+    - name: Upload File
+      id: upload_file
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./$file_name  # 替换为你下载的文件名
+        asset_name: $file_name  # 替换为你想要发布的文件名
