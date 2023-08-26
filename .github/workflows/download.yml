@@ -41,3 +41,4 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./$file_name  # 替换为你下载的文件名
         asset_name: $file_name  # 替换为你想要发布的文件名
+        asset_content_type: application/octet-stream
