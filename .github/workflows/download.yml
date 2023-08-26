@@ -1,7 +1,7 @@
 name: Download and Publish File
 
 env:
-  url: https://download-cdn.jetbrains.com/idea/$file_name
+  url: https://download-cdn.jetbrains.com/idea/${{ env.file_name }}
   file_name: IU-231.9392.1-232.9559.62-patch-win.jar
 
 on:
@@ -27,10 +27,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: $file_name  # 替换为你想要的标签名
-        release_name: $file_name  # 替换为你想要的发布名称
+        tag_name: ${{ env.file_name }}  # 替换为你想要的标签名
+        release_name: ${{ env.file_name }}  # 替换为你想要的发布名称
         body: |
-          $file_name  # 替换为你想要的发布说明
+          ${{ env.file_name }}  # 替换为你想要的发布说明
 
     - name: Upload File
       id: upload_file
@@ -39,6 +39,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./$file_name  # 替换为你下载的文件名
-        asset_name: $file_name  # 替换为你想要发布的文件名
+        asset_path: ./${{ env.file_name }}  # 替换为你下载的文件名
+        asset_name: ${{ env.file_name }}  # 替换为你想要发布的文件名
         asset_content_type: application/octet-stream
