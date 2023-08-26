@@ -1,7 +1,7 @@
 name: Download and Publish File
 
 env:
-  url: https://download-cdn.jetbrains.com/idea/${{ env.file_name }}
+  url: https://download-cdn.jetbrains.com/idea
   file_name: IU-231.9392.1-232.9559.62-patch-win.jar
 
 on:
@@ -19,7 +19,7 @@ jobs:
 
     - name: Download File
       run: |
-        curl -LO $url  # 替换<URL>为指定的文件下载链接
+        curl -LO ${{ env.url }}/${{ env.file_name }}  # 替换<URL>为指定的文件下载链接
 
     - name: Create Release
       id: create_release
