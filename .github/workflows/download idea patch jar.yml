@@ -2,7 +2,7 @@ name: Download and Publish Jetbrains Idea Update Patch Jar
 
 env:
   url: https://download-cdn.jetbrains.com/idea
-  file_name: IU-231.9392.1-232.9559.62-patch-win.jar
+  file_name: IU-232.9559.62-232.9921.47-patch-win.jar
 
 on:
   push:
